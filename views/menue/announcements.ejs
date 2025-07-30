@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Announcements</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #007bff;
+      padding: 15px 30px;
+      border-radius: 0 0 10px 10px;
+    }
+
+    .navbar .logo h2 a {
+      color: white;
+      text-decoration: none;
+      font-size: 24px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links li {
+      display: inline-block;
+    }
+
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .nav-links li a:hover {
+      text-decoration: underline;
+    }
+
+    .bell a {
+      font-size: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #007bff;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background: #e8f0fe;
+      margin-bottom: 15px;
+      padding: 15px 20px;
+      border-radius: 8px;
+      line-height: 1.6;
+    }
+
+    li strong {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <%- include("../partials/navbar") %>
+
+  <div class="container">
+    <h2>🛎️ University Announcements</h2>
+    <ul>
+      <% announcements.forEach(item => { %>
+        <li><strong><%= item.date %>:</strong> <%= item.text %></li>
+      <% }) %>
+    </ul>
+  </div>
+</body>
+</html>

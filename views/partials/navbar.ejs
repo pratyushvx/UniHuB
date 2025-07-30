@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UniHub.org</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .navbar {
+      background-color: #1e1e2f;
+      color: white;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar .logo h2 a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 26px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .nav-links li a {
+      color: #d9d9d9;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links li a:hover {
+      color: #00c9db;
+    }
+
+    .nav-links .bell a {
+      font-size: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .nav-links li {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">
+      <h2>uniHub.org</a></h2>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/unihub/notes">Notes</a></li>
+      <li><a href="/unihub/pyqs">PYQs</a></li>
+      <li><a href="/unihub/upload-note">Upload Note</a></li>
+      <li><a href="/unihub/upload-pyq">Upload PYQ</a></li>
+      <li><a href="/logout">Logout</a></li>
+      <li class="bell"><a href="/unihub/announcements">🔔</a></li>
+    </ul>
+  </nav>
+
+  <main style="padding: 30px;">
+    <h1>Welcome to UniHub!</h1>
+    <p>This is your one-stop college portal for resources and announcements.</p>
+  </main>
+
+</body>
+</html>

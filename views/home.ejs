@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UniHub Home</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 80px;
+      color: #333;
+    }
+
+    .home-links {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .home-links a {
+      text-decoration: none;
+      margin: 0 20px;
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    .home-links a:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <%- include('partials/navbar_home') %>
+
+  <h1>Welcome to UniHub.org</h1>
+  <div class="home-links">
+    <a href="/login">Login</a> |
+    <a href="/signup">Signup</a>
+  </div>
+
+</body>
+</html>
