@@ -22,9 +22,10 @@ export const upload = multer({ storage });
 export const getNotes = async (req, res) => {
   try {
     const notes = await Note.find().sort({ createdAt: -1 });
-    res.render("menue/notes", { notes });
+    res.render("menue/notes", { notes: notes || [] });
   } catch (err) {
-    res.status(500).send("Error fetching notes.");
+    console.error("Error fetching notes:", err);
+    res.render("menue/notes", { notes: [], error: "Error loading notes" });
   }
 };
 
@@ -32,9 +33,10 @@ export const getNotes = async (req, res) => {
 export const getPyqs = async (req, res) => {
   try {
     const pyqs = await Pyq.find().sort({ createdAt: -1 });
-    res.render("menue/pyq", { pyqs });
+    res.render("menue/pyq", { pyqs: pyqs || [] });
   } catch (err) {
-    res.status(500).send("Error fetching PYQs.");
+    console.error("Error fetching PYQs:", err);
+    res.render("menue/pyq", { pyqs: [], error: "Error loading PYQs" });
   }
 };
 
@@ -51,28 +53,48 @@ export const getUploadPyq = (req, res) => {
 // ✅ Upload Note Handler
 export const postUploadNote = async (req, res) => {
   try {
+    if (!req.file) {
+      return res.status(400).send("No file uploaded");
+    }
+
     const { title, subject, semester, description } = req.body;
+    
+    if (!title || !subject || !semester || !description) {
+      return res.status(400).send("All fields are required");
+    }
+
     const fileUrl = "/uploads/" + req.file.filename;
     const fileType = req.file.mimetype.startsWith("image") ? "image" : "pdf";
 
     await Note.create({ title, subject, semester, description, fileUrl, fileType });
     res.redirect("/unihub/notes");
   } catch (err) {
-    res.status(500).send("Error uploading note.");
+    console.error("Error uploading note:", err);
+    res.status(500).send("Error uploading note. Please try again.");
   }
 };
 
 // ✅ Upload PYQ Handler
 export const postUploadPyq = async (req, res) => {
   try {
+    if (!req.file) {
+      return res.status(400).send("No file uploaded");
+    }
+
     const { title, subject, semester, description } = req.body;
+    
+    if (!title || !subject || !semester || !description) {
+      return res.status(400).send("All fields are required");
+    }
+
     const fileUrl = "/uploads/" + req.file.filename;
     const fileType = req.file.mimetype.startsWith("image") ? "image" : "pdf";
 
     await Pyq.create({ title, subject, semester, description, fileUrl, fileType });
     res.redirect("/unihub/pyqs");
   } catch (err) {
-    res.status(500).send("Error uploading PYQ.");
+    console.error("Error uploading PYQ:", err);
+    res.status(500).send("Error uploading PYQ. Please try again.");
   }
 };
 
@@ -80,8 +102,9 @@ export const postUploadPyq = async (req, res) => {
 export const getAnnouncements = async (req, res) => {
   try {
     const announcements = await Announcement.find().sort({ createdAt: -1 });
-    res.render("menue/announcements", { announcements });
+    res.render("menue/announcements", { announcements: announcements || [] });
   } catch (err) {
-    res.status(500).send("Error loading announcements.");
+    console.error("Error loading announcements:", err);
+    res.render("menue/announcements", { announcements: [], error: "Error loading announcements" });
   }
 };

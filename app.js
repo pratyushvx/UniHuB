@@ -7,6 +7,10 @@ import contentRoute from "./routes/contentRoute.js"
 const app=express();
 dotenv.config();
 app.set("view engine", "ejs");
+
+// Serve static files from public directory
+app.use(express.static("public"));
+
 //connecting MongoDB 
 const connectDB = async () => {
   try {
