@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login - UniHub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/css/auth.css">
+  <style>
+    .admin-login-box {
+      border-left: 4px solid #ffd700;
+    }
+    .admin-login-box h2 {
+      color: #ffd700;
+    }
+    .admin-login-box button {
+      background-color: #ffd700;
+      color: #1e1e2f;
+    }
+    .admin-login-box button:hover {
+      background-color: #ffed4e;
+    }
+  </style>
+</head>
+<body>
+
+  <%- include('../partials/navbar') %>
+
+  <div class="container">
+    <div class="login-box admin-login-box">
+      <h2><i class="fas fa-crown"></i> Admin Login</h2>
+      
+      <!-- Error Message Display -->
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="error-message">
+          <%= error %>
+        </div>
+      <% } %>
+      
+      <form action="/admin/login" method="POST">
+        <input type="email" name="email" placeholder="Admin Email" required>
+        <input type="password" name="pass" placeholder="Admin Password" required>
+        <button type="submit">Admin Login</button>
+      </form>
+      <div class="link">
+        Don't have an admin account? <a href="/admin/signup">Admin Signup</a>
+      </div>
+      <div class="link">
+        <a href="/login">Regular User Login</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html> 

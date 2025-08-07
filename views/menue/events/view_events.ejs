@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - UniHub</title>
+    <link rel="stylesheet" href="/css/partials.css">
+    <link rel="stylesheet" href="/css/events/events.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <%- include('../../partials/navbar') %>
+    
+    <div class="container">
+        <div class="page-header">
+            <h2><i class="fas fa-calendar-alt"></i> College Events</h2>
+            <a href="/events/create" class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+                Create Event
+            </a>
+        </div>
+
+        <div class="events-grid">
+            <% if (events && events.length > 0) { %>
+                <% events.forEach(event => { %>
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="day"><%= new Date(event.date).getDate() %></span>
+                            <span class="month"><%= new Date(event.date).toLocaleDateString('en-US', { month: 'short' }) %></span>
+                        </div>
+                        
+                        <div class="event-content">
+                            <h3><%= event.title %></h3>
+                            <p class="event-description"><%= event.description %></p>
+                            
+                            <div class="event-details">
+                                <div class="detail">
+                                    <i class="fas fa-clock"></i>
+                                    <span><%= event.time %></span>
+                                </div>
+                                <div class="detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span><%= event.venue %></span>
+                                </div>
+                                <div class="detail">
+                                    <i class="fas fa-user"></i>
+                                    <span><%= event.organizer %></span>
+                                </div>
+                            </div>
+                            
+                            <div class="event-actions">
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="fas fa-calendar-plus"></i>
+                                    Attend
+                                </button>
+                                <button class="btn btn-outline btn-sm">
+                                    <i class="fas fa-share"></i>
+                                    Share
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="empty-state">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>No Events Found</h3>
+                    <p>No upcoming events at the moment.</p>
+                    <a href="/events/create" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Create Event
+                    </a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html> 

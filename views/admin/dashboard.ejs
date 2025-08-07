@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - UniHub</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+    
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1><i class="fas fa-crown"></i> Admin Dashboard</h1>
+            <p>Manage your UniHub platform</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Total Users</h3>
+                    <span class="stat-number"><%= stats.totalUsers %></span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Total Events</h3>
+                    <span class="stat-number"><%= stats.totalEvents %></span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Total Announcements</h3>
+                    <span class="stat-number"><%= stats.totalAnnouncements %></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-actions">
+            <h2>Quick Actions</h2>
+            <div class="actions-grid">
+                <a href="/admin/announcements" class="action-card">
+                    <i class="fas fa-bullhorn"></i>
+                    <h3>Manage Announcements</h3>
+                    <p>Create, edit, and delete announcements</p>
+                </a>
+
+                <a href="/admin/events" class="action-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Manage Events</h3>
+                    <p>Create and manage college events</p>
+                </a>
+
+                <a href="/admin/companies" class="action-card">
+                    <i class="fas fa-building"></i>
+                    <h3>Manage Companies</h3>
+                    <p>Add and manage placement companies</p>
+                </a>
+
+                <a href="/admin/hackathons" class="action-card">
+                    <i class="fas fa-code"></i>
+                    <h3>Manage Hackathons</h3>
+                    <p>Add and manage hackathon events</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="recent-announcements">
+            <h2>Recent Announcements</h2>
+            <div class="announcements-list">
+                <% if (stats.recentAnnouncements && stats.recentAnnouncements.length > 0) { %>
+                    <% stats.recentAnnouncements.forEach(announcement => { %>
+                        <div class="announcement-item">
+                            <div class="announcement-header">
+                                <h4><%= announcement.title %></h4>
+                                <span class="priority-badge <%= announcement.priority %>">
+                                    <%= announcement.priority.toUpperCase() %>
+                                </span>
+                            </div>
+                            <p><%= announcement.content.substring(0, 100) %>...</p>
+                            <small><%= new Date(announcement.createdAt).toLocaleDateString() %></small>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p class="no-data">No recent announcements</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/admin.js"></script>
+</body>
+</html> 

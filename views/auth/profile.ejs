@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - UniHub</title>
+    <link rel="stylesheet" href="/css/auth.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+
+    <div class="container">
+        <div class="profile-container">
+            <div class="profile-header">
+                <h2><i class="fas fa-user-circle"></i> My Profile</h2>
+                <p>Manage your account information</p>
+            </div>
+
+            <% if (typeof success !== 'undefined' && success) { %>
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle"></i>
+                    <%= success %>
+                </div>
+            <% } %>
+
+            <% if (typeof error !== 'undefined' && error) { %>
+                <div class="alert alert-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <%= error %>
+                </div>
+            <% } %>
+
+            <div class="profile-content">
+                <div class="profile-info">
+                    <div class="profile-photo">
+                        <img src="<%= user.photo %>" alt="Profile Photo" id="profilePhoto">
+                        <div class="photo-overlay">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-details">
+                        <h3><%= user.username %></h3>
+                        <p><i class="fas fa-envelope"></i> <%= user.email %></p>
+                        <p><i class="fas fa-graduation-cap"></i> Semester <%= user.sem %></p>
+                        <p><i class="fas fa-code-branch"></i> <%= user.branch %></p>
+                        <p><i class="fas fa-phone"></i> <%= user.phoneno %></p>
+                        <% if (user.isAdmin) { %>
+                            <p><i class="fas fa-crown"></i> <span class="admin-badge">Admin</span></p>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class="profile-form">
+                    <h3><i class="fas fa-edit"></i> Edit Profile</h3>
+                    <form action="/profile" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="username">Full Name</label>
+                            <input type="text" id="username" name="username" value="<%= user.username %>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sem">Semester</label>
+                            <select id="sem" name="sem" required>
+                                <% for(let i = 1; i <= 8; i++) { %>
+                                    <option value="<%= i %>" <%= user.sem == i ? 'selected' : '' %>>Semester <%= i %></option>
+                                <% } %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="branch">Branch</label>
+                            <select id="branch" name="branch" required>
+                                <option value="CSE" <%= user.branch === 'CSE' ? 'selected' : '' %>>CSE</option>
+                                <option value="IT" <%= user.branch === 'IT' ? 'selected' : '' %>>IT</option>
+                                <option value="ECE" <%= user.branch === 'ECE' ? 'selected' : '' %>>ECE</option>
+                                <option value="EEE" <%= user.branch === 'EEE' ? 'selected' : '' %>>EEE</option>
+                                <option value="ME" <%= user.branch === 'ME' ? 'selected' : '' %>>ME</option>
+                                <option value="CE" <%= user.branch === 'CE' ? 'selected' : '' %>>CE</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phoneno">Phone Number</label>
+                            <input type="text" id="phoneno" name="phoneno" value="<%= user.phoneno %>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="photo">Profile Photo (Optional)</label>
+                            <input type="file" id="photo" name="photo" accept="image/*">
+                            <small>Upload a new photo to replace current one</small>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                Update Profile
+                            </button>
+                            <a href="/dashboard" class="btn btn-outline">
+                                <i class="fas fa-arrow-left"></i>
+                                Back to Dashboard
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Preview profile photo
+        document.getElementById('photo').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profilePhoto').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html> 

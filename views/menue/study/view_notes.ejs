@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Notes - UniHub</title>
+    <link rel="stylesheet" href="/css/partials.css">
+    <link rel="stylesheet" href="/css/study/view.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <%- include('../../partials/navbar') %>
+    
+    <div class="container">
+        <div class="page-header">
+            <h2><i class="fas fa-book-open"></i> Study Notes</h2>
+            <a href="/study/upload-note" class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+                Upload Note
+            </a>
+        </div>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label for="subjectFilter">Subject:</label>
+                <select id="subjectFilter">
+                    <option value="">All Subjects</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="English">English</option>
+                    <option value="Economics">Economics</option>
+                    <option value="Biology">Biology</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="semesterFilter">Semester:</label>
+                <select id="semesterFilter">
+                    <option value="">All Semesters</option>
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                    <option value="7">Semester 7</option>
+                    <option value="8">Semester 8</option>
+                </select>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search notes...">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+
+        <div class="notes-grid">
+            <% if (notes && notes.length > 0) { %>
+                <% notes.forEach(note => { %>
+                    <div class="note-card" data-subject="<%= note.subject %>" data-semester="<%= note.semester %>">
+                        <div class="note-header">
+                            <div class="note-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="note-meta">
+                                <h3><%= note.title %></h3>
+                                <span class="subject"><%= note.subject %></span>
+                                <span class="semester">Semester <%= note.semester %></span>
+                            </div>
+                        </div>
+                        
+                        <div class="note-content">
+                            <p><%= note.description || 'No description available' %></p>
+                        </div>
+                        
+                        <div class="note-footer">
+                            <div class="note-info">
+                                <span class="upload-date">
+                                    <i class="fas fa-calendar"></i>
+                                    <%= new Date(note.createdAt).toLocaleDateString() %>
+                                </span>
+                                <span class="uploader">
+                                    <i class="fas fa-user"></i>
+                                    <%= note.uploadedBy?.name || 'Anonymous' %>
+                                </span>
+                            </div>
+                            
+                            <div class="note-actions">
+                                <% if (note.filePath) { %>
+                                    <a href="/uploads/<%= note.filePath.split('/').pop() %>" 
+                                       class="btn btn-primary btn-sm" target="_blank">
+                                        <i class="fas fa-download"></i>
+                                        Download
+                                    </a>
+                                <% } %>
+                                <button class="btn btn-outline btn-sm" onclick="shareNote('<%= note._id %>')">
+                                    <i class="fas fa-share"></i>
+                                    Share
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="empty-state">
+                    <i class="fas fa-book-open"></i>
+                    <h3>No Notes Found</h3>
+                    <p>Be the first to upload a note!</p>
+                    <a href="/study/upload-note" class="btn btn-primary">
+                        <i class="fas fa-upload"></i>
+                        Upload Note
+                    </a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <script src="/js/notes.js"></script>
+</body>
+</html> 

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Signup - UniHub</title>
+  <link rel="stylesheet" href="/css/auth.css">
+  <style>
+    .admin-signup-box {
+      border-left: 4px solid #ffd700;
+    }
+    .admin-signup-box h2 {
+      color: #ffd700;
+    }
+    .admin-signup-box button {
+      background-color: #ffd700;
+      color: #1e1e2f;
+    }
+    .admin-signup-box button:hover {
+      background-color: #ffed4e;
+    }
+  </style>
+</head>
+<body>
+
+   <%- include('../partials/navbar') %>
+
+  <div class="container">
+    <div class="signup-box admin-signup-box">
+      <h2><i class="fas fa-crown"></i> Admin Signup</h2>
+      <form action="/admin/signup" method="POST" enctype="multipart/form-data">
+        <input type="text" name="username" placeholder="Admin Full Name" required>
+        <input type="email" name="email" placeholder="Admin Email" required>
+        <input type="password" name="pass" placeholder="Admin Password" required>
+
+        <div class="photo-upload">
+          <label for="photo">Admin Profile Photo (Optional)</label>
+          <input type="file" name="photo" id="photo" accept="image/*">
+        </div>
+
+        <select name="sem" required>
+          <option value="">Select Semester</option>
+          <% for(let i = 1; i <= 8; i++) { %>
+            <option value="<%= i %>">Semester <%= i %></option>
+          <% } %>
+        </select>
+
+        <select name="branch" required>
+          <option value="">Select Branch</option>
+          <option value="CSE">CSE</option>
+          <option value="IT">IT</option>
+          <option value="ECE">ECE</option>
+          <option value="EEE">EEE</option>
+          <option value="ME">ME</option>
+          <option value="CE">CE</option>
+        </select>
+
+        <input type="text" name="phoneno" placeholder="Admin Phone Number" required>
+
+        <button type="submit">Create Admin Account</button>
+      </form>
+      <div class="link">
+        Already have an admin account? <a href="/admin/login">Admin Login</a>
+      </div>
+      <div class="link">
+        <a href="/signup">Regular User Signup</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 

@@ -1,14 +1,17 @@
 import express from "express";
-import { login, signup,verifyLogin,verifySignup,logout } from "../controller/authController.js";
+import { login, signup, verifyLogin, verifySignup, logout, profile, updateProfile } from "../controller/authController.js";
 
 const router = express.Router();
 
 router.get("/login", login);
 router.get("/signup", signup);
 //handle Post Request
-router.post("/login",verifyLogin)
-router.post("/signup",verifySignup)
+router.post("/login", verifyLogin);
+router.post("/signup", verifySignup);
 //handle Logout
-router.get("/logout",logout);
+router.get("/logout", logout);
+//handle Profile
+router.get("/profile", profile);
+router.post("/profile", updateProfile);
 
 export default router;

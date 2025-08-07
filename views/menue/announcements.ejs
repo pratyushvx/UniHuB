@@ -1,35 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>University Announcements</title>
-  <link rel="stylesheet" href="/css/announcements.css">
-  <!-- Optional: Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements - UniHub</title>
+    <link rel="stylesheet" href="/css/announcements.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-
-  <!-- Navbar -->
-  <%- include("../partials/navbar") %>
-
- <div class="container">
-  <h2>📢 University Announcements</h2>
-
-  <% if (announcements.length > 0) { %>
-    <div class="announcement-grid">
-      <% announcements.forEach(item => { %>
-        <div class="announcement-card">
-          <strong><i class="fa-regular fa-calendar"></i> <%= item.date %></strong>
-          <p><%= item.text %></p>
+    <%- include('../partials/navbar') %>
+    
+    <div class="announcements-container">
+        <div class="announcements-header">
+            <h1><i class="fas fa-bullhorn"></i> Announcements</h1>
+            <p>Stay updated with the latest news and important information</p>
         </div>
-      <% }) %>
+
+        <div class="announcements-grid">
+            <% if (announcements && announcements.length > 0) { %>
+                <% announcements.forEach(announcement => { %>
+                    <div class="announcement-card priority-<%= announcement.priority %>">
+                        <div class="announcement-header">
+                            <h3><%= announcement.title %></h3>
+                            <span class="priority-badge <%= announcement.priority %>">
+                                <%= announcement.priority.toUpperCase() %>
+                            </span>
+                        </div>
+                        <div class="announcement-content">
+                            <p><%= announcement.content %></p>
+                        </div>
+                        <div class="announcement-footer">
+                            <span class="author">
+                                <i class="fas fa-user"></i>
+                                <%= announcement.author ? announcement.author.username : 'Admin' %>
+                            </span>
+                            <span class="date">
+                                <i class="fas fa-calendar"></i>
+                                <%= new Date(announcement.createdAt).toLocaleDateString() %>
+                            </span>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="no-announcements">
+                    <i class="fas fa-bell-slash"></i>
+                    <h3>No Announcements</h3>
+                    <p>There are no announcements at the moment. Check back later!</p>
+                </div>
+            <% } %>
+        </div>
     </div>
-  <% } else { %>
-    <p class="no-announcements">No announcements available at the moment.</p>
-  <% } %>
-</div>
 
-
+    <script src="/js/announcements.js"></script>
 </body>
 </html>

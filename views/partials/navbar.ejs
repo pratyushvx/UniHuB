@@ -24,6 +24,7 @@
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      flex-wrap: wrap;
     }
 
     .navbar .logo h2 a {
@@ -51,8 +52,101 @@
       color: #00c9db;
     }
 
-    .nav-links .bell a {
-      font-size: 20px;
+    .auth-links {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .auth-links a {
+      padding: 8px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .auth-links .login-btn {
+      color: #00c9db;
+      border: 1px solid #00c9db;
+    }
+
+    .auth-links .login-btn:hover {
+      background-color: #00c9db;
+      color: #1e1e2f;
+    }
+
+    .auth-links .signup-btn {
+      background-color: #00c9db;
+      color: #1e1e2f;
+    }
+
+    .auth-links .signup-btn:hover {
+      background-color: #00a8b8;
+    }
+
+    .auth-links .admin-btn {
+      color: #ffd700;
+      border: 1px solid #ffd700;
+    }
+
+    .auth-links .admin-btn:hover {
+      background-color: #ffd700;
+      color: #1e1e2f;
+    }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ffffff;
+    }
+
+    .user-name {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .user-dropdown a {
+      margin-left: 10px;
+      color: #d9d9d9;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .user-dropdown a:hover {
+      color: #00c9db;
+    }
+
+    .user-dropdown .admin-link {
+      color: #ffd700;
+    }
+
+    .user-dropdown .logout-btn {
+      color: #ff6b6b;
+      border: 1px solid #ff6b6b;
+      padding: 6px 12px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .user-dropdown .logout-btn:hover {
+      background-color: #ff6b6b;
+      color: white;
     }
 
     @media (max-width: 768px) {
@@ -70,29 +164,60 @@
       .nav-links li {
         margin-bottom: 10px;
       }
+
+      .auth-links {
+        margin-top: 10px;
+        flex-wrap: wrap;
+      }
     }
   </style>
 </head>
 <body>
 
-  <nav class="navbar">
-    <div class="logo">
-      <h2>uniHub.org</a></h2>
-    </div>
-    <ul class="nav-links">
-      <li><a href="/unihub/notes">Notes</a></li>
-      <li><a href="/unihub/pyqs">PYQs</a></li>
-      <li><a href="/unihub/upload-note">Upload Note</a></li>
-      <li><a href="/unihub/upload-pyq">Upload PYQ</a></li>
-      <li><a href="/logout">Logout</a></li>
-      <li class="bell"><a href="/unihub/announcements">🔔</a></li>
-    </ul>
-  </nav>
+<nav class="navbar">
+  <div class="logo">
+    <h2><a href="/dashboard">UniHub</a></h2>
+  </div>
 
-  <main style="padding: 30px;">
-    <h1>Welcome to UniHub!</h1>
-    <p>This is your one-stop college portal for resources and announcements.</p>
-  </main>
+  <ul class="nav-links">
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/study">Study</a></li>
+    <li><a href="/events">Events</a></li>
+    <li><a href="/placement">Placement</a></li>
+    <li><a href="/talk">Campus Talk</a></li>
+    <li><a href="/announcements">Announcements</a></li>
+  </ul>
+
+  <div class="auth-section">
+    <% if (typeof user !== 'undefined' && user) { %>
+      <div class="user-menu">
+        <div class="user-info">
+          <img src="<%= user.photo %>" alt="Profile" class="user-avatar">
+          <span class="user-name"><%= user.username %></span>
+        </div>
+        <div class="user-dropdown">
+          <a href="/profile" class="profile-link">
+            <i class="fas fa-user"></i> Profile
+          </a>
+          <% if (user.isAdmin) { %>
+            <a href="/admin" class="admin-link">
+              <i class="fas fa-crown"></i> Admin Panel
+            </a>
+          <% } %>
+          <a href="/logout" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="auth-links">
+        <a href="/login" class="login-btn">Login</a>
+        <a href="/signup" class="signup-btn">Sign Up</a>
+        <a href="/admin/login" class="admin-btn">Admin</a>
+      </div>
+    <% } %>
+  </div>
+</nav>
 
 </body>
 </html>

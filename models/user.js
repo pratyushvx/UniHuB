@@ -17,10 +17,20 @@ const userSchema = new mongoose.Schema({
     match: [/\S+@\S+\.\S+/, "Please use a valid email address"]
   },
 
-  pass: {
+  password: {
     type: String,
     required: [true, "Password is required"],
     minlength: [6, "Minimum 6 characters required"]
+  },
+
+  photo: {
+    type: String,
+    default: "/img/default-avatar.png"
+  },
+
+  isAdmin: {
+    type: Boolean,
+    default: false
   },
 
   sem: {

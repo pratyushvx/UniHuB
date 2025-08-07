@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniHub Dashboard</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <%- include('partials/navbar') %>
+    
+    <div class="dashboard-container">
+        <div class="welcome-section">
+            <h1>Welcome to UniHub!</h1>
+            <p>Your one-stop platform for all university resources</p>
+        </div>
+
+        <div class="modules-grid">
+            <!-- Study Module -->
+            <div class="module-card study-module">
+                <div class="module-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h3>Study</h3>
+                <p>Upload and access notes, PYQs, and study materials</p>
+                <div class="module-actions">
+                    <a href="/study" class="btn btn-primary">View Notes</a>
+                    <a href="/study/pyqs" class="btn btn-secondary">View PYQs</a>
+                    <a href="/study/upload-note" class="btn btn-outline">Upload Note</a>
+                    <a href="/study/upload-pyq" class="btn btn-outline">Upload PYQ</a>
+                </div>
+            </div>
+
+            <!-- Events Module -->
+            <div class="module-card events-module">
+                <div class="module-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>Events</h3>
+                <p>Explore college events, workshops, and activities</p>
+                <div class="module-actions">
+                    <a href="/events" class="btn btn-primary">View Events</a>
+                    <a href="/events/create" class="btn btn-outline">Create Event</a>
+                </div>
+            </div>
+
+            <!-- Placement Module -->
+            <div class="module-card placement-module">
+                <div class="module-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3>Placement</h3>
+                <p>Find companies, internships, and hackathons</p>
+                <div class="module-actions">
+                    <a href="/placement/companies" class="btn btn-primary">Companies</a>
+                    <a href="/placement/internships" class="btn btn-secondary">Internships</a>
+                    <a href="/placement/hackathons" class="btn btn-outline">Hackathons</a>
+                </div>
+            </div>
+
+            <!-- Campus Talk Module -->
+            <div class="module-card talk-module">
+                <div class="module-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>Campus Talk</h3>
+                <p>Join semester-wise discussion rooms</p>
+                <div class="module-actions">
+                    <a href="/talk" class="btn btn-primary">Join Rooms</a>
+                    <a href="/talk/sem1" class="btn btn-outline">Semester 1</a>
+                    <a href="/talk/sem2" class="btn btn-outline">Semester 2</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-stats">
+            <div class="stat-card">
+                <i class="fas fa-file-alt"></i>
+                <h4>Total Notes</h4>
+                <span class="stat-number">150+</span>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-calendar-check"></i>
+                <h4>Upcoming Events</h4>
+                <span class="stat-number">8</span>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-building"></i>
+                <h4>Companies</h4>
+                <span class="stat-number">25+</span>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <h4>Active Users</h4>
+                <span class="stat-number">500+</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/dashboard.js"></script>
+</body>
+</html> 

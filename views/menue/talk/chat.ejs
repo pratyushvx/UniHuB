@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Global Chat - UniHub</title>
+  <!-- <link rel="stylesheet" href="/css/talk/talk.css"> -->
+</head>
+<body>
+  <%- include('../../partials/navbar') %>
+
+  <div class="chat-container">
+    <h2>🌍 Global Chat Room</h2>
+
+    <div class="chat-box">
+      <% messages.forEach(msg => { %>
+        <div class="chat-message">
+          <strong><%= msg.username %>:</strong>
+          <span><%= msg.message %></span>
+          <small><%= new Date(msg.timestamp).toLocaleTimeString() %></small>
+        </div>
+      <% }) %>
+    </div>
+
+    <form class="chat-form" method="POST" action="/talk/chat">
+      <input type="text" name="message" required placeholder="Type your message..." />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+</body>
+</html>

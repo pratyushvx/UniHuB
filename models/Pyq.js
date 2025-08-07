@@ -5,9 +5,10 @@ const pyqSchema = new mongoose.Schema(
     title: { type: String, required: true },
     subject: { type: String, required: true },
     semester: { type: Number, required: true },
+    year: { type: Number, required: true },
     description: { type: String },
-    fileUrl: { type: String, required: true },       // Stores "/uploads/filename.pdf"
-    fileType: { type: String, required: true },       // "pdf" or "image"
+    filePath: { type: String, required: true },       // Stores "/uploads/filename.pdf"
+    uploadedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
   },
   { timestamps: true }  // Adds createdAt and updatedAt automatically
 );

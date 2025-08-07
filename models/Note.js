@@ -6,8 +6,8 @@ const noteSchema = new mongoose.Schema(
     subject: { type: String, required: true },
     semester: { type: Number, required: true },
     description: { type: String },
-    fileUrl: { type: String, required: true },       // Local path, e.g., "/uploads/dbms.pdf"
-    fileType: { type: String, required: true },       // "pdf" or "image"
+    filePath: { type: String, required: true },       // Local path, e.g., "/uploads/dbms.pdf"
+    uploadedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
   },
   { timestamps: true }  // Adds createdAt and updatedAt fields automatically
 );

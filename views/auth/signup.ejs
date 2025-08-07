@@ -12,10 +12,15 @@
   <div class="container">
     <div class="signup-box">
       <h2>Signup</h2>
-      <form action="/signup" method="POST">
+      <form action="/signup" method="POST" enctype="multipart/form-data">
         <input type="text" name="username" placeholder="Full Name" required>
         <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="pass" placeholder="Password" required>
+
+        <div class="photo-upload">
+          <label for="photo">Profile Photo (Optional)</label>
+          <input type="file" name="photo" id="photo" accept="image/*">
+        </div>
 
         <select name="sem" required>
           <option value="">Select Semester</option>

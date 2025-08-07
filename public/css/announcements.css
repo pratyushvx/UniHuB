@@ -44,60 +44,197 @@ body {
   text-decoration: underline;
 }
 
-/* Container */
-.container {
-  max-width: 1100px;
-  margin: 30px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+/* Announcements Page Styles */
+.announcements-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-.container h2 {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 28px;
-  color: #007bff;
+.announcements-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px;
 }
 
-/* Announcement list grid */
-.announcement-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 25px;
+.announcements-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
 }
 
-/* Individual announcement card */
+.announcements-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.announcements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
 .announcement-card {
-  border: 1px solid #e0e0e0;
-  padding: 20px;
-  border-radius: 10px;
-  transition: 0.3s;
-  background-color: #fafafa;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 4px solid #ddd;
 }
 
 .announcement-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-.announcement-card strong {
-  color: #0056b3;
-  font-size: 1em;
+.announcement-card.priority-urgent {
+    border-left-color: #ff4757;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
 }
 
-.announcement-card p {
-  margin-top: 10px;
-  color: #666;
-  font-size: 0.95em;
+.announcement-card.priority-high {
+    border-left-color: #ffa502;
+    background: linear-gradient(135deg, #fff9f0 0%, #fff2e0 100%);
 }
 
-/* No announcements message */
+.announcement-card.priority-medium {
+    border-left-color: #2ed573;
+    background: linear-gradient(135deg, #f0fff4 0%, #e8f5e8 100%);
+}
+
+.announcement-card.priority-low {
+    border-left-color: #3742fa;
+    background: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%);
+}
+
+.announcement-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.announcement-header h3 {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    margin: 0;
+    flex: 1;
+    margin-right: 15px;
+}
+
+.priority-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.priority-badge.urgent {
+    background-color: #ff4757;
+    color: white;
+}
+
+.priority-badge.high {
+    background-color: #ffa502;
+    color: white;
+}
+
+.priority-badge.medium {
+    background-color: #2ed573;
+    color: white;
+}
+
+.priority-badge.low {
+    background-color: #3742fa;
+    color: white;
+}
+
+.announcement-content {
+    margin-bottom: 20px;
+}
+
+.announcement-content p {
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.announcement-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #777;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.announcement-footer span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.announcement-footer i {
+    font-size: 0.8rem;
+}
+
 .no-announcements {
-  text-align: center;
-  padding: 40px;
-  color: #666;
-  font-size: 1.1em;
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: #777;
+}
+
+.no-announcements i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: #ddd;
+}
+
+.no-announcements h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.no-announcements p {
+    font-size: 1.1rem;
+    color: #888;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .announcements-container {
+        padding: 15px;
+    }
+    
+    .announcements-header h1 {
+        font-size: 2rem;
+    }
+    
+    .announcements-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .announcement-card {
+        padding: 20px;
+    }
+    
+    .announcement-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .announcement-footer {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
 }

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement - UniHub</title>
+    <link rel="stylesheet" href="/css/partials.css">
+    <link rel="stylesheet" href="/css/placement/placement.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <%- include('../../partials/navbar') %>
+    
+    <div class="container">
+        <div class="page-header">
+            <h2><i class="fas fa-briefcase"></i> Placement & Career</h2>
+            <p>Find your dream job, internship, or participate in hackathons</p>
+        </div>
+
+        <div class="placement-modules">
+            <div class="module-card companies">
+                <div class="module-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3>Companies</h3>
+                <p>Explore job opportunities from top companies</p>
+                <div class="stats">
+                    <span class="stat">
+                        <i class="fas fa-briefcase"></i>
+                        25+ Companies
+                    </span>
+                    <span class="stat">
+                        <i class="fas fa-users"></i>
+                        150+ Positions
+                    </span>
+                </div>
+                <a href="/placement/companies" class="btn btn-primary">
+                    <i class="fas fa-arrow-right"></i>
+                    View Companies
+                </a>
+            </div>
+
+            <div class="module-card internships">
+                <div class="module-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Internships</h3>
+                <p>Gain real-world experience through internships</p>
+                <div class="stats">
+                    <span class="stat">
+                        <i class="fas fa-clock"></i>
+                        3-6 Months
+                    </span>
+                    <span class="stat">
+                        <i class="fas fa-money-bill-wave"></i>
+                        ₹15K-50K
+                    </span>
+                </div>
+                <a href="/placement/internships" class="btn btn-primary">
+                    <i class="fas fa-arrow-right"></i>
+                    View Internships
+                </a>
+            </div>
+
+            <div class="module-card hackathons">
+                <div class="module-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>Hackathons</h3>
+                <p>Showcase your skills and win prizes</p>
+                <div class="stats">
+                    <span class="stat">
+                        <i class="fas fa-trophy"></i>
+                        ₹5L+ Prizes
+                    </span>
+                    <span class="stat">
+                        <i class="fas fa-calendar"></i>
+                        Monthly Events
+                    </span>
+                </div>
+                <a href="/placement/hackathons" class="btn btn-primary">
+                    <i class="fas fa-arrow-right"></i>
+                    View Hackathons
+                </a>
+            </div>
+        </div>
+
+        <div class="placement-stats">
+            <div class="stat-card">
+                <i class="fas fa-user-graduate"></i>
+                <h4>Placement Rate</h4>
+                <span class="stat-number">85%</span>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-dollar-sign"></i>
+                <h4>Average Package</h4>
+                <span class="stat-number">₹8.5 LPA</span>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-building"></i>
+                <h4>Partner Companies</h4>
+                <span class="stat-number">100+</span>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <h4>Students Placed</h4>
+                <span class="stat-number">500+</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
