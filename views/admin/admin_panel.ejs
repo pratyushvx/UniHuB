@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+    <%- include('../partials/navbar') %>
+  <h1 class="mb-4">Admin Panel</h1>
+  <p>Total Users: <strong><%= data.totalUsers %></strong></p>
+
+  <div class="accordion" id="adminAccordion">
+
+    <!-- Announcements -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#announcements">Announcements</button>
+      </h2>
+      <div id="announcements" class="accordion-collapse collapse show">
+        <div class="accordion-body">
+          <form method="POST" action="/admin/announcements" class="row g-2 mb-3">
+            <input type="text" name="title" class="form-control" placeholder="Title" required>
+            <textarea name="content" class="form-control" placeholder="Content" required></textarea>
+            <select name="priority" class="form-select">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+              <option value="urgent">Urgent</option>
+            </select>
+            <button class="btn btn-primary mt-2">Add Announcement</button>
+          </form>
+
+          <table class="table table-bordered">
+            <tr><th>Title</th><th>Content</th><th>Priority</th><th>Action</th></tr>
+            <% data.announcements.forEach(a => { %>
+              <tr>
+                <td><%= a.title %></td>
+                <td><%= a.content %></td>
+                <td><%= a.priority %></td>
+                <td>
+                  <form method="POST" action="/admin/announcements/delete/<%= a._id %>">
+                    <button class="btn btn-danger btn-sm">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repeat similar accordion items for Events, Companies, Internships, Hackathons -->
+
+    <% const sections = [
+      { name: 'Events', dataKey: 'events', fields: [
+        { name: 'title', placeholder: 'Title', type: 'text' },
+        { name: 'description', placeholder: 'Description', type: 'textarea' },
+        { name: 'date', placeholder: 'Date', type: 'date' },
+        { name: 'time', placeholder: 'Time', type: 'time' },
+        { name: 'venue', placeholder: 'Venue', type: 'text' },
+        { name: 'organizer', placeholder: 'Organizer', type: 'text' }
+      ]},
+      { name: 'Companies', dataKey: 'companies', fields: [
+        { name: 'name', placeholder: 'Name', type: 'text' },
+        { name: 'description', placeholder: 'Description', type: 'textarea' },
+        { name: 'website', placeholder: 'Website', type: 'text' },
+        { name: 'location', placeholder: 'Location', type: 'text' },
+        { name: 'eligibility', placeholder: 'Eligibility', type: 'text' }
+      ]},
+      { name: 'Internships', dataKey: 'internships', fields: [
+        { name: 'title', placeholder: 'Title', type: 'text' },
+        { name: 'company', placeholder: 'Company', type: 'text' },
+        { name: 'description', placeholder: 'Description', type: 'textarea' },
+        { name: 'duration', placeholder: 'Duration', type: 'text' },
+        { name: 'stipend', placeholder: 'Stipend', type: 'text' },
+        { name: 'applyLink', placeholder: 'Apply Link', type: 'text' }
+      ]},
+      { name: 'Hackathons', dataKey: 'hackathons', fields: [
+        { name: 'name', placeholder: 'Name', type: 'text' },
+        { name: 'description', placeholder: 'Description', type: 'textarea' },
+        { name: 'organizer', placeholder: 'Organizer', type: 'text' },
+        { name: 'startDate', placeholder: 'Start Date', type: 'date' },
+        { name: 'endDate', placeholder: 'End Date', type: 'date' },
+        { name: 'prize', placeholder: 'Prize', type: 'text' },
+        { name: 'applyLink', placeholder: 'Apply Link', type: 'text' }
+      ]}
+    ]; %>
+
+    <% sections.forEach(section => { %>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#<%= section.name %>"><%= section.name %></button>
+        </h2>
+        <div id="<%= section.name %>" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            <form method="POST" action="/admin/<%= section.dataKey %>" class="row g-2 mb-3">
+              <% section.fields.forEach(field => { %>
+                <% if(field.type === 'textarea'){ %>
+                  <textarea name="<%= field.name %>" class="form-control" placeholder="<%= field.placeholder %>" required></textarea>
+                <% } else { %>
+                  <input type="<%= field.type %>" name="<%= field.name %>" class="form-control" placeholder="<%= field.placeholder %>" required>
+                <% } %>
+              <% }) %>
+              <button class="btn btn-primary mt-2">Add <%= section.name.slice(0, -1) %></button>
+            </form>
+
+            <table class="table table-bordered">
+              <tr>
+                <% if(data[section.dataKey].length > 0) {
+                  Object.keys(data[section.dataKey][0]._doc).forEach(key => { %>
+                    <th><%= key %></th>
+                <% }); %>
+                  <th>Action</th>
+                <% } %>
+              </tr>
+              <% data[section.dataKey].forEach(item => { %>
+                <tr>
+                  <% Object.values(item._doc).forEach(val => { %>
+                    <td><%= val ? val.toString().slice(0,50) : '' %></td>
+                  <% }) %>
+                  <td>
+                    <form method="POST" action="/admin/<%= section.dataKey %>/delete/<%= item._id %>">
+                      <button class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </table>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

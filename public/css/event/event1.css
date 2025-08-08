@@ -1,0 +1,123 @@
+/* Wrapper for events content area */
+.events-content {
+  max-width: 1100px;
+  margin: 40px auto 60px;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  position: relative;
+  background: url('/img/events.png') no-repeat center center;
+  background-size: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 25px rgba(30, 30, 47, 0.1);
+  overflow: hidden;
+}
+
+/* Overlay to improve text readability */
+.events-content::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0.85);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Ensure children are above overlay */
+.events-content > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Heading inside content */
+.events-content h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #1e1e2f;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* Event list as grid */
+.events-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+  gap: 28px;
+}
+
+/* Individual event card */
+.events-content li {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(30, 30, 47, 0.1);
+  padding: 22px 20px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  cursor: default;
+}
+
+/* Hover effect */
+.events-content li:hover {
+  box-shadow: 0 12px 28px rgba(30, 30, 47, 0.2);
+  transform: translateY(-5px);
+}
+
+/* Event icon */
+.events-content li::before {
+  content: "📅";
+  font-size: 3rem;
+  margin-bottom: 18px;
+  display: block;
+  color: #00c9db;
+}
+
+/* Event title */
+.events-content li h2 {
+  font-size: 1.5rem;
+  color: #1e1e2f;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+/* Event description */
+.events-content li p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+/* Date and location styling */
+.events-content li p strong {
+  color: #1e1e2f;
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .events-content {
+    margin: 20px auto 40px;
+    padding: 20px 15px;
+  }
+
+  .events-content h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  .events-content ul {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .events-content li::before {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+  }
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Internships</title>
+  <link rel="stylesheet" href="/css/placement/placement.css">
+</head>
+<body>
+   <%- include('../../partials/navbar') %>
+  <div class="container">
+    <h1>Internships</h1>
+    <div class="list">
+      <% internships.forEach(internship => { %>
+        <div class="card">
+          <h2><%= internship.title %> at <%= internship.company %></h2>
+          <p><%= internship.description %></p>
+          <p><b>Duration:</b> <%= internship.duration %></p>
+          <p><b>Stipend:</b> <%= internship.stipend %></p>
+          <a href="<%= internship.applyLink %>" target="_blank">Apply Now</a>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>

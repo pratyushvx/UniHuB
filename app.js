@@ -6,6 +6,7 @@ import http from "http";
 import { Server } from "socket.io";
 
 // Route imports
+import dashboardRoute from "./routes/dashboardRoute.js";
 import authRoutes from "./routes/authRoutes.js";
 import homeRoute from "./routes/homeRoute.js";
 import studyRoutes from "./routes/studyRoutes.js";
@@ -38,7 +39,7 @@ app.use(cookieParser());
 
 // Auth middleware
 import { userMiddleware } from "./utils/authMiddleware.js";
-app.use(userMiddleware);
+app.use(userMiddleware);//this needs 
 
 // MongoDB connection
 const connectDB = async () => {
@@ -52,9 +53,7 @@ const connectDB = async () => {
 connectDB();
 
 // Default route
-app.get("/", (req, res) => {
-  res.redirect("/dashboard");
-});
+app.use("/", dashboardRoute);
 
 // Routes
 app.use("/", homeRoute);
@@ -86,7 +85,7 @@ io.on("connection", (socket) => {
 });
 
 // Start server with Socket.IO support
-const PORT = 3000;
+const PORT = 5000;
 server.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });

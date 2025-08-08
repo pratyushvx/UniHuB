@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hackathons</title>
+  <link rel="stylesheet" href="/css/placement/placement.css">
+</head>
+<body>
+  <%- include('../../partials/navbar') %>
+
+  <div class="container">
+    <h1>Hackathons</h1>
+    <div class="list">
+      <% hackathons.forEach(hackathon => { %>
+        <div class="card">
+          <h2><%= hackathon.name %></h2>
+          <p><%= hackathon.description %></p>
+          <p><b>Organizer:</b> <%= hackathon.organizer %></p>
+          <p><b>Dates:</b> <%= hackathon.startDate.toDateString() %> - <%= hackathon.endDate.toDateString() %></p>
+          <p><b>Prize:</b> <%= hackathon.prize %></p>
+          <a href="<%= hackathon.applyLink %>" target="_blank" rel="noopener noreferrer">Apply Here</a>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>

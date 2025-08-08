@@ -15,9 +15,9 @@ const announcementSchema = new mongoose.Schema({
   },
 
   author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    type: String,
+    default: "admin", // ✅ auto-sets if missing
+    immutable: true,  // ✅ prevents changes after creation
   },
 
   priority: {

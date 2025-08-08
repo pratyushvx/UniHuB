@@ -3,6 +3,7 @@ import { getCurrentUser } from "../controller/authController.js";
 // Middleware to add user data to all views
 export const userMiddleware = (req, res, next) => {
   const user = getCurrentUser(req);
+  req.user = user;  
   res.locals.user = user;
   next();
 };

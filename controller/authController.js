@@ -71,7 +71,7 @@ export async function verifySignup(req, res) {
       });
 
       await newUser.save();
-      res.send("Signup successful!");
+      res.render("auth/login", { success: "Signup successful!" });
     } catch (err) {
       console.error(err);
       const msg = err.errors

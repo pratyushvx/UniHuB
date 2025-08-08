@@ -1,0 +1,104 @@
+/* Body and font */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* Container wrapper */
+.container {
+  max-width: 1100px;
+  margin: 40px auto 60px;
+  padding: 0 20px;
+}
+
+/* Page heading */
+.container h1 {
+  text-align: center;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #1e1e2f;
+  margin-bottom: 40px;
+}
+
+/* Company cards grid */
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* Individual card styling */
+.card {
+  background-color: #fff;
+  padding: 25px 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(30, 30, 47, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Card hover effect */
+.card:hover {
+  box-shadow: 0 12px 28px rgba(30, 30, 47, 0.2);
+  transform: translateY(-5px);
+}
+
+/* Company name */
+.card h2 {
+  color: #1e1e2f;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+/* Company info text */
+.card p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+/* Bold labels */
+.card p b {
+  color: #1e1e2f;
+  font-weight: 600;
+}
+
+/* Link styling */
+.card a {
+  margin-top: auto;
+  align-self: flex-start;
+  text-decoration: none;
+  color: #00c9db;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+/* Link hover */
+.card a:hover {
+  color: #007b8a;
+  text-decoration: underline;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .container {
+    margin: 20px auto 40px;
+  }
+
+  .container h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  .list {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

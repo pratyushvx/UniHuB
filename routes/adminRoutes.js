@@ -1,39 +1,41 @@
 import express from "express";
-import { 
-  adminDashboard, 
-  createAnnouncement, 
-  viewAnnouncements, 
+import {
+  adminPanel,
+  addAnnouncement,
   deleteAnnouncement,
-  createEvent,
-  viewEvents,
+  addEvent,
   deleteEvent,
-  createCompany,
-  viewCompanies,
-  createHackathon,
-  viewHackathons
+  addCompany,
+  deleteCompany,
+  addInternship,
+  deleteInternship,
+  addHackathon,
+  deleteHackathon
 } from "../controller/adminController.js";
 
 const router = express.Router();
 
-// Admin Dashboard
-router.get("/admin", adminDashboard);
+// Admin Panel View
+router.get("/admin", adminPanel);
 
-// Announcement Management
-router.get("/admin/announcements", viewAnnouncements);
-router.post("/admin/announcements", createAnnouncement);
-router.delete("/admin/announcements/:id", deleteAnnouncement);
+// Announcements
+router.post("/admin/announcements", addAnnouncement);
+router.post("/admin/announcements/delete/:id", deleteAnnouncement);
 
-// Event Management
-router.get("/admin/events", viewEvents);
-router.post("/admin/events", createEvent);
-router.delete("/admin/events/:id", deleteEvent);
+// Events
+router.post("/admin/events", addEvent);
+router.post("/admin/events/delete/:id", deleteEvent);
 
-// Company Management
-router.get("/admin/companies", viewCompanies);
-router.post("/admin/companies", createCompany);
+// Companies
+router.post("/admin/companies", addCompany);
+router.post("/admin/companies/delete/:id", deleteCompany);
 
-// Hackathon Management
-router.get("/admin/hackathons", viewHackathons);
-router.post("/admin/hackathons", createHackathon);
+// Internships
+router.post("/admin/internships", addInternship);
+router.post("/admin/internships/delete/:id", deleteInternship);
 
-export default router; 
+// Hackathons
+router.post("/admin/hackathons", addHackathon);
+router.post("/admin/hackathons/delete/:id", deleteHackathon);
+
+export default router;

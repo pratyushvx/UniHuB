@@ -1,30 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Global Chat - UniHub</title>
-  <!-- <link rel="stylesheet" href="/css/talk/talk.css"> -->
+  <script src="/socket.io/socket.io.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+    }
+
+    .chat-container {
+      max-width: 800px;
+      margin: 50px auto;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      height: 80vh;
+    }
+
+    .chat-header {
+      background: #007bff;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .chat-form {
+      display: flex;
+      padding: 10px;
+      background: #eee;
+    }
+
+    .chat-form input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .chat-form button {
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      margin-left: 10px;
+    }
+
+    .message {
+      margin-bottom: 15px;
+    }
+
+    .message span {
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
   <%- include('../../partials/navbar') %>
 
   <div class="chat-container">
-    <h2>🌍 Global Chat Room</h2>
+    <div class="chat-header">
+      <h2>🌍 Global Chat Room</h2>
+    </div>
 
-    <div class="chat-box">
+    <div class="chat-messages" id="messages">
       <% messages.forEach(msg => { %>
-        <div class="chat-message">
-          <strong><%= msg.username %>:</strong>
-          <span><%= msg.message %></span>
-          <small><%= new Date(msg.timestamp).toLocaleTimeString() %></small>
+        <div class="message">
+          <span><%= msg.username %></span>: <%= msg.message %>
         </div>
       <% }) %>
     </div>
 
-    <form class="chat-form" method="POST" action="/talk/chat">
-      <input type="text" name="message" required placeholder="Type your message..." />
+    <form class="chat-form" id="chatForm">
+      <input type="text" id="messageInput" placeholder="Type your message..." required />
       <button type="submit">Send</button>
     </form>
   </div>
+
+  <script>
+    const socket = io({
+      auth: {
+        username: "<%= username %>"
+      }
+    });
+
+    const form = document.getElementById("chatForm");
+    const input = document.getElementById("messageInput");
+    const messages = document.getElementById("messages");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const msg = input.value.trim();
+      if (msg !== "") {
+        socket.emit("chatMessage", { username: "<%= username %>", message: msg });
+        input.value = "";
+      }
+    });
+
+    socket.on("message", function (data) {
+      const div = document.createElement("div");
+      div.classList.add("message");
+      div.innerHTML = `<span>${data.username}</span>: ${data.message}`;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    });
+  </script>
 </body>
 </html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Companies - UniHub.org</title>
+ <link rel="stylesheet" href="/css/placement/placement.css">
+</head>
+<body>
+  <%- include('../../partials/navbar') %>
+
+  <div class="container">
+    <h1>Companies</h1>
+    <div class="list">
+      <% companies.forEach(company => { %>
+        <div class="card">
+          <h2><%= company.name %></h2>
+          <p><%= company.description %></p>
+          <p><b>Location:</b> <%= company.location %></p>
+          <p><b>Eligibility:</b> <%= company.eligibility %></p>
+          <a href="<%= company.website %>" target="_blank" rel="noopener noreferrer">Visit Website</a>
+
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>

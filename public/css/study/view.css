@@ -7,13 +7,16 @@
     padding: 20px;
     background: white;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 .page-header h2 {
     margin: 0;
     color: #1e1e2f;
-    font-size: 1.8rem;
+    font-size: 1.9rem;
+    font-weight: 700;
 }
 
 .page-header h2 i {
@@ -21,6 +24,7 @@
     color: #007bff;
 }
 
+/* Filters section */
 .filters {
     display: flex;
     gap: 20px;
@@ -28,14 +32,14 @@
     padding: 20px;
     background: white;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     flex-wrap: wrap;
 }
 
 .filter-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 }
 
 .filter-group label {
@@ -46,12 +50,19 @@
 
 .filter-group select {
     padding: 8px 12px;
-    border: 2px solid #e1e5e9;
+    border: 1.8px solid #e1e5e9;
     border-radius: 6px;
     font-size: 0.9rem;
     min-width: 150px;
+    transition: border-color 0.2s ease;
 }
 
+.filter-group select:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+/* Search box */
 .search-box {
     position: relative;
     flex: 1;
@@ -61,9 +72,15 @@
 .search-box input {
     width: 100%;
     padding: 8px 12px 8px 40px;
-    border: 2px solid #e1e5e9;
+    border: 1.8px solid #e1e5e9;
     border-radius: 6px;
     font-size: 0.9rem;
+    transition: border-color 0.2s ease;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #007bff;
 }
 
 .search-box i {
@@ -74,25 +91,28 @@
     color: #666;
 }
 
+/* Notes grid */
 .notes-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
     gap: 20px;
 }
 
+/* Note card */
 .note-card {
     background: white;
     border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .note-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
+/* Note header */
 .note-header {
     display: flex;
     align-items: center;
@@ -110,37 +130,43 @@
     justify-content: center;
     color: white;
     font-size: 1.2rem;
+    flex-shrink: 0;
 }
 
 .note-meta h3 {
-    margin: 0 0 5px 0;
+    margin: 0 0 4px 0;
     color: #1e1e2f;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+    font-weight: 600;
 }
 
 .note-meta span {
     display: block;
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 2px;
+    font-size: 0.85rem;
+    color: #777;
 }
 
+/* Note content */
 .note-content {
     margin-bottom: 15px;
 }
 
 .note-content p {
-    color: #666;
+    color: #555;
     line-height: 1.5;
     margin: 0;
+    font-size: 0.92rem;
 }
 
+/* Footer */
 .note-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-top: 15px;
     border-top: 1px solid #eee;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .note-info {
@@ -164,8 +190,19 @@
 .btn-sm {
     padding: 6px 12px;
     font-size: 0.8rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background: #007bff;
+    color: white;
+    transition: background 0.2s ease;
 }
 
+.btn-sm:hover {
+    background: #0056b3;
+}
+
+/* Empty state */
 .empty-state {
     text-align: center;
     padding: 60px 20px;
@@ -191,29 +228,28 @@
 @media (max-width: 768px) {
     .page-header {
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
         text-align: center;
     }
-    
+
     .filters {
         flex-direction: column;
     }
-    
+
     .search-box {
-        min-width: auto;
+        min-width: 100%;
     }
-    
+
     .notes-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .note-footer {
         flex-direction: column;
-        gap: 15px;
         align-items: stretch;
     }
-    
+
     .note-actions {
         justify-content: center;
     }
-} 
+}

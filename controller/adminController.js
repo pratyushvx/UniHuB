@@ -1,176 +1,159 @@
-import Event from "../models/Event.js";
 import Announcement from "../models/Announcement.js";
+import Event from "../models/Event.js";
+import Company from "../models/company.js";
+import Internship from "../models/internship.js";
+import Hackathon from "../models/hackathon.js";
 import User from "../models/user.js";
 
-// Admin Dashboard
-export const adminDashboard = async (req, res) => {
+/* ===== Admin Panel ===== */
+export const adminPanel = async (req, res) => {
   try {
-    const stats = {
-      totalUsers: await User.countDocuments(),
-      totalEvents: await Event.countDocuments(),
-      totalAnnouncements: await Announcement.countDocuments(),
-      recentAnnouncements: await Announcement.find().sort({ createdAt: -1 }).limit(5)
+    if (!req.user) return res.redirect("/login");
+
+    const data = {
+      announcements: await Announcement.find()
+        .populate("author", "username")
+        .sort({ createdAt: -1 }),
+      events: await Event.find().sort({ createdAt: -1 }),
+      companies: await Company.find().sort({ datePosted: -1 }),
+      internships: await Internship.find().sort({ datePosted: -1 }),
+      hackathons: await Hackathon.find().sort({ datePosted: -1 }),
+      totalUsers: await User.countDocuments()
     };
-    
-    res.render("admin/dashboard", { stats });
-  } catch (error) {
-    console.error("Admin dashboard error:", error);
-    res.status(500).send("Server error");
+    res.render("admin/admin_panel", { data });
+  } catch (err) {
+    console.error("Error loading admin panel:", err);
+    res.status(500).send("Error loading admin panel");
   }
 };
 
-// Announcement Management
-export const createAnnouncement = async (req, res) => {
+/* ===== Announcements ===== */
+export const addAnnouncement = async (req, res) => {
   try {
+    if (!req.user) return res.redirect("/login");
+
     const { title, content, priority } = req.body;
-    
     const announcement = new Announcement({
       title,
       content,
-      priority: priority || 'medium',
-      author: req.user._id // Assuming user is logged in
+      priority,
+     author: "admin"
     });
-
     await announcement.save();
-    res.redirect("/admin/announcements?success=Announcement created successfully");
-  } catch (error) {
-    console.error("Create announcement error:", error);
-    res.redirect("/admin/announcements?error=Failed to create announcement");
-  }
-};
-
-export const viewAnnouncements = async (req, res) => {
-  try {
-    const announcements = await Announcement.find()
-      .populate('author', 'username')
-      .sort({ createdAt: -1 });
-    
-    res.render("admin/announcements", { announcements });
-  } catch (error) {
-    console.error("View announcements error:", error);
-    res.status(500).send("Server error");
+    res.redirect("/admin");
+  } catch (err) {
+    console.error("Error adding announcement:", err);
+    res.redirect("/admin?error=announcement");
   }
 };
 
 export const deleteAnnouncement = async (req, res) => {
   try {
-    const { id } = req.params;
-    await Announcement.findByIdAndDelete(id);
-    res.redirect("/admin/announcements?success=Announcement deleted successfully");
-  } catch (error) {
-    console.error("Delete announcement error:", error);
-    res.redirect("/admin/announcements?error=Failed to delete announcement");
+    await Announcement.findByIdAndDelete(req.params.id);
+    res.redirect("/admin");
+  } catch (err) {
+    console.error("Error deleting announcement:", err);
+    res.redirect("/admin?error=delete_announcement");
   }
 };
 
-// Event Management
-export const createEvent = async (req, res) => {
+/* ===== Events ===== */
+export const addEvent = async (req, res) => {
   try {
+    if (!req.user) return res.redirect("/login");
+
     const { title, description, date, time, venue, organizer } = req.body;
-    
     const event = new Event({
       title,
       description,
       date,
       time,
       venue,
-      organizer,
-      createdBy: req.user._id
+      organizer
     });
-
     await event.save();
-    res.redirect("/admin/events?success=Event created successfully");
-  } catch (error) {
-    console.error("Create event error:", error);
-    res.redirect("/admin/events?error=Failed to create event");
-  }
-};
-
-export const viewEvents = async (req, res) => {
-  try {
-    const events = await Event.find().populate('createdBy', 'username').sort({ createdAt: -1 });
-    res.render("admin/events", { events });
-  } catch (error) {
-    console.error("View events error:", error);
-    res.status(500).send("Server error");
+    res.redirect("/admin");
+  } catch (err) {
+    console.error("Error adding event:", err);
+    res.redirect("/admin?error=event");
   }
 };
 
 export const deleteEvent = async (req, res) => {
   try {
-    const { id } = req.params;
-    await Event.findByIdAndDelete(id);
-    res.redirect("/admin/events?success=Event deleted successfully");
-  } catch (error) {
-    console.error("Delete event error:", error);
-    res.redirect("/admin/events?error=Failed to delete event");
+    await Event.findByIdAndDelete(req.params.id);
+    res.redirect("/admin");
+  } catch (err) {
+    console.error("Error deleting event:", err);
+    res.redirect("/admin?error=delete_event");
   }
 };
 
-// Company Management
-export const createCompany = async (req, res) => {
+/* ===== Companies ===== */
+export const addCompany = async (req, res) => {
   try {
-    const { name, description, website, salary, requirements } = req.body;
-    
-    // For now, we'll store companies in a simple format
-    // You can create a separate Company model later
-    const company = {
-      name,
-      description,
-      website,
-      salary,
-      requirements,
-      createdAt: new Date()
-    };
-
-    // Store in a simple way for now
-    // You might want to create a Company model
-    res.redirect("/admin/companies?success=Company added successfully");
-  } catch (error) {
-    console.error("Create company error:", error);
-    res.redirect("/admin/companies?error=Failed to add company");
+    const { name, description, website, location, eligibility } = req.body;
+    const company = new Company({ name, description, website, location, eligibility });
+    await company.save();
+    res.redirect("/admin");
+  } catch (err) {
+    console.error("Error adding company:", err);
+    res.redirect("/admin?error=company");
   }
 };
 
-export const viewCompanies = async (req, res) => {
+export const deleteCompany = async (req, res) => {
   try {
-    // Mock data for now
-    const companies = [
-      { name: "Google", description: "Software Engineer", package: "15 LPA", requirements: "B.Tech CSE" },
-      { name: "Microsoft", description: "Full Stack Developer", package: "12 LPA", requirements: "B.Tech IT" }
-    ];
-    
-    res.render("admin/companies", { companies });
-  } catch (error) {
-    console.error("View companies error:", error);
-    res.status(500).send("Server error");
+    await Company.findByIdAndDelete(req.params.id);
+    res.redirect("/admin");
+  } catch (err) {
+    console.error("Error deleting company:", err);
+    res.redirect("/admin?error=delete_company");
   }
 };
 
-// Hackathon Management
-export const createHackathon = async (req, res) => {
+/* ===== Internships ===== */
+export const addInternship = async (req, res) => {
   try {
-    const { name, description, startDate, endDate, prizes, registrationLink } = req.body;
-    
-    // Mock creation for now
-    res.redirect("/admin/hackathons?success=Hackathon added successfully");
-  } catch (error) {
-    console.error("Create hackathon error:", error);
-    res.redirect("/admin/hackathons?error=Failed to add hackathon");
+    const { title, company, description, duration, stipend, applyLink } = req.body;
+    const internship = new Internship({ title, company, description, duration, stipend, applyLink });
+    await internship.save();
+    res.redirect("/admin");
+  } catch (err) {
+    console.error("Error adding internship:", err);
+    res.redirect("/admin?error=internship");
   }
 };
 
-export const viewHackathons = async (req, res) => {
+export const deleteInternship = async (req, res) => {
   try {
-    // Mock data for now
-    const hackathons = [
-      { name: "CodeFest 2024", description: "Annual coding competition", startDate: "2024-03-15", prizes: "₹50,000" },
-      { name: "InnovateTech", description: "Innovation challenge", startDate: "2024-04-01", prizes: "₹30,000" }
-    ];
-    
-    res.render("admin/hackathons", { hackathons });
-  } catch (error) {
-    console.error("View hackathons error:", error);
-    res.status(500).send("Server error");
+    await Internship.findByIdAndDelete(req.params.id);
+    res.redirect("/admin");
+  } catch (err) {
+    console.error("Error deleting internship:", err);
+    res.redirect("/admin?error=delete_internship");
   }
-}; 
+};
+
+/* ===== Hackathons ===== */
+export const addHackathon = async (req, res) => {
+  try {
+    const { name, description, organizer, startDate, endDate, prize, applyLink } = req.body;
+    const hackathon = new Hackathon({ name, description, organizer, startDate, endDate, prize, applyLink });
+    await hackathon.save();
+    res.redirect("/admin");
+  } catch (err) {
+    console.error("Error adding hackathon:", err);
+    res.redirect("/admin?error=hackathon");
+  }
+};
+
+export const deleteHackathon = async (req, res) => {
+  try {
+    await Hackathon.findByIdAndDelete(req.params.id);
+    res.redirect("/admin");
+  } catch (err) {
+    console.error("Error deleting hackathon:", err);
+    res.redirect("/admin?error=delete_hackathon");
+  }
+};

@@ -27,9 +27,8 @@ const eventSchema = new mongoose.Schema({
     required: true
   },
   createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true
+    type: String,
+    default: "admin"  // ✅ Always set to "admin"
   },
   attendees: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -43,4 +42,4 @@ const eventSchema = new mongoose.Schema({
   timestamps: true
 });
 
-export default mongoose.model("Event", eventSchema); 
+export default mongoose.model("Event", eventSchema);
