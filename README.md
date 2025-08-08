@@ -271,7 +271,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Pratyush Thakur**
 - GitHub: [@pratyushvx](https://github.com/pratyushvx)
-- LinkedIn: [Pratyush Thakur](https://linkedin.com/in/pratyush-thakur)
+
 
 ---
 
