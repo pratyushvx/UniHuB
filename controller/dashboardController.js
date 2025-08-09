@@ -26,15 +26,7 @@ export const getDashboard = async (req, res) => {
       activeUsersCount
     });
 
-    res.render("dashboard", {
-      stats: {
-        totalNotes: totalNotesCount,
-        upcomingEvents: upcomingEventsCount,
-        companies: companiesCount,
-        activeUsers: activeUsersCount,
-      },
-      user: req.user
-    });
+    res.render("dashboard");
   } catch (error) {
     console.error("Dashboard error:", error);
     res.status(500).send("Internal Server Error");
