@@ -1,5 +1,5 @@
 import Note from "../models/Note.js";
-import PYQ from "../models/PYQ.js";
+import PYQ from "../models/Pyq.js";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
